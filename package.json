@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "test": "jest",
     "test:watch": "jest --watch"
   },
