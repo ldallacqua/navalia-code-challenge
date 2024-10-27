@@ -1,0 +1,47 @@
+// prisma/schema.prisma
+datasource db {
+  provider = "postgresql" // Update if using another database
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  userType  UserType @default(COMMON)
+  CartItem  CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id        String   @id @default(uuid())
+  name      String
+  price     Decimal  @db.Decimal(10, 2)
+  CartItem  CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CartItem {
+  id         String   @id @default(uuid())
+  quantity   Int
+  userId     String
+  productId  String
+  User       User     @relation(fields: [userId], references: [id])
+  Product    Product  @relation(fields: [productId], references: [id])
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum UserType {
+  COMMON
+  VIP
+}
