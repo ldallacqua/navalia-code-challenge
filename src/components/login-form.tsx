@@ -1,5 +1,11 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -8,11 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Switch } from '@/components/ui/switch'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { CreateUserFormSchema, CreateUserSchema } from '@/schemas/users'
 import {
   Form,
   FormControl,
@@ -22,10 +23,10 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
-import { useForm } from 'react-hook-form'
-import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import { Input } from '@/components/ui/input'
+import { Switch } from '@/components/ui/switch'
 import { toast } from '@/hooks/use-toast'
+import { CreateUserFormSchema, CreateUserSchema } from '@/schemas/users'
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof CreateUserFormSchema>>({

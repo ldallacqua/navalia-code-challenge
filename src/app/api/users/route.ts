@@ -1,8 +1,9 @@
-import { errorResponseHandler } from '@/app/api/utils/handlers'
-import prisma from '../../../../client'
-import { CreateUserSchema } from '@/schemas/users'
 import { NextRequest } from 'next/server'
+
+import prisma from '../../../../client'
 import { authenticate } from '@/app/api/utils/authenticate'
+import { errorResponseHandler } from '@/app/api/utils/handlers'
+import { CreateUserSchema } from '@/schemas/users'
 
 export const POST = async (request: NextRequest) => {
   try {

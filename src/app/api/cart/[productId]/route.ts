@@ -1,8 +1,9 @@
-import { deleteCartItemSchema, patchCartItemSchema } from '@/schemas/cart'
+import { NextRequest } from 'next/server'
+
+import prisma from '../../../../../client'
 import { authenticate } from '@/app/api/utils/authenticate'
 import { errorResponseHandler, NotFound } from '@/app/api/utils/handlers'
-import { NextRequest } from 'next/server'
-import prisma from '../../../../../client'
+import { deleteCartItemSchema, patchCartItemSchema } from '@/schemas/cart'
 
 export const PATCH = async (
   request: NextRequest,

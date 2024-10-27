@@ -1,11 +1,12 @@
+import { NextRequest } from 'next/server'
+
+import prisma from '../../../../../client'
 import {
   calculateThreeForTwo,
   calculateVIPDiscount,
 } from '@/app/api/helpers/calculate-totals'
 import { authenticate } from '@/app/api/utils/authenticate'
 import { errorResponseHandler, NotFound } from '@/app/api/utils/handlers'
-import { NextRequest } from 'next/server'
-import prisma from '../../../../../client'
 
 export const GET = async (request: NextRequest) => {
   try {

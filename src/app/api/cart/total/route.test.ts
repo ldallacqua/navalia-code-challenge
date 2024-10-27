@@ -2,11 +2,12 @@
  * @jest-environment node
  */
 
-import { authenticate } from '@/app/api/utils/authenticate'
-import { NextRequest } from 'next/server'
-import { GET } from '@/app/api/cart/total/route'
 import { User, CartItem, Product } from '@prisma/client'
+import { NextRequest } from 'next/server'
+
 import { prismaMock } from '../../../../../singleton'
+import { GET } from '@/app/api/cart/total/route'
+import { authenticate } from '@/app/api/utils/authenticate'
 import { PRODUCTS } from '@/mocks/products'
 
 jest.mock('@/app/api/utils/authenticate')

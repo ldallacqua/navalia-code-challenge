@@ -1,8 +1,9 @@
-import { createCartItemSchema } from '@/schemas/cart'
+import { NextRequest } from 'next/server'
+
+import prisma from '../../../../client'
 import { authenticate } from '@/app/api/utils/authenticate'
 import { errorResponseHandler } from '@/app/api/utils/handlers'
-import { NextRequest } from 'next/server'
-import prisma from '../../../../client'
+import { createCartItemSchema } from '@/schemas/cart'
 
 export const POST = async (request: NextRequest) => {
   try {
