@@ -1,9 +1,9 @@
 import { NextRequest } from 'next/server'
 
 import prisma from '../../../../client'
-import { authenticate } from '@/app/api/utils/authenticate'
-import { errorResponseHandler } from '@/app/api/utils/handlers'
 import { createCartItemSchema } from '@/schemas/cart'
+import { authenticate } from '@/utils/authenticate'
+import { errorResponseHandler } from '@/utils/handlers'
 
 export const POST = async (request: NextRequest) => {
   try {

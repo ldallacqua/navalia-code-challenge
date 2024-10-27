@@ -7,8 +7,8 @@ import { NextRequest } from 'next/server'
 
 import { prismaMock } from '../../../../../singleton'
 import { GET } from '@/app/api/cart/total/route'
-import { authenticate } from '@/app/api/utils/authenticate'
 import { PRODUCTS } from '@/mocks/products'
+import { authenticate } from '@/utils/authenticate'
 
 jest.mock('@/app/api/utils/authenticate')
 const mockAuthenticate = authenticate as jest.Mock

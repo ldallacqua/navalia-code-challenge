@@ -2,7 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import axios from 'axios'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -27,8 +27,10 @@ import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
 import { toast } from '@/hooks/use-toast'
 import { CreateUserFormSchema, CreateUserSchema } from '@/schemas/users'
+import api from '@/utils/axios-instance'
 
 export function LoginForm() {
+  const router = useRouter()
   const form = useForm<z.infer<typeof CreateUserFormSchema>>({
     resolver: zodResolver(CreateUserFormSchema),
     defaultValues: {
@@ -38,10 +40,9 @@ export function LoginForm() {
     },
   })
 
-  // Create a user in DB
   const { mutate: createUser, isPending } = useMutation({
     mutationFn: (data: z.infer<typeof CreateUserSchema>) => {
-      return axios.post('/api/users', data)
+      return api.post('/users', data)
     },
     onSuccess: ({ data }) => {
       toast({
@@ -49,6 +50,7 @@ export function LoginForm() {
         description: 'User created!',
       })
       localStorage.setItem('userId', data?.id)
+      router.replace('/dashboard')
     },
     onError: (error) => {
       toast({
@@ -69,7 +71,10 @@ export function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full space-y-6 flex items-center"
+      >
         <Card className="mx-auto max-w-sm">
           <CardHeader>
             <CardTitle className="text-2xl">Create a User</CardTitle>

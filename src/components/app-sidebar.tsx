@@ -1,67 +1,38 @@
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react'
+import { useMemo } from 'react'
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from '@/components/ui/sidebar'
-
-// Menu items.
-const items = [
-  {
-    title: 'Home',
-    url: '#',
-    icon: Home,
-  },
-  {
-    title: 'Inbox',
-    url: '#',
-    icon: Inbox,
-  },
-  {
-    title: 'Calendar',
-    url: '#',
-    icon: Calendar,
-  },
-  {
-    title: 'Search',
-    url: '#',
-    icon: Search,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
-  },
-]
+import { CartItem } from '@/components/cart-item'
+import { Button } from '@/components/ui/button'
+import { Sidebar, SidebarContent, SidebarFooter } from '@/components/ui/sidebar'
+import { useGetCartItems } from '@/hooks/use-get-cart-items'
 
 export function AppSidebar() {
+  const { data: cartItems } = useGetCartItems()
+
+  const hasCartItems = useMemo(() => {
+    return cartItems && cartItems.length > 0
+  }, [cartItems])
+
   return (
     <Sidebar side="right">
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+      <SidebarContent className="p-4">
+        <h2 className="text-2xl mb-4">Cart</h2>
+        {hasCartItems ? (
+          cartItems
+            ?.sort((a, b) => (a?.createdAt > b?.createdAt ? 1 : -1))
+            ?.map((cartItem) => (
+              <CartItem key={cartItem?.productId} cartItem={cartItem} />
+            ))
+        ) : (
+          <div className="text-center text-muted-foreground">
+            Your cart is empty
+          </div>
+        )}
       </SidebarContent>
+      <SidebarFooter className="p-6">
+        <Button disabled={!hasCartItems} className="w-full">
+          Checkout
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   )
 }

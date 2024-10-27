@@ -33,3 +33,7 @@ export const CreateUserFormSchema = z.object({
   email,
   vip,
 })
+
+export const DeleteUserSchema = z.object({
+  userId: z.string(),
+})

@@ -4,9 +4,9 @@ import prisma from '../../../../../client'
 import {
   calculateThreeForTwo,
   calculateVIPDiscount,
-} from '@/app/api/helpers/calculate-totals'
-import { authenticate } from '@/app/api/utils/authenticate'
-import { errorResponseHandler, NotFound } from '@/app/api/utils/handlers'
+} from '@/helpers/calculate-totals'
+import { authenticate } from '@/utils/authenticate'
+import { errorResponseHandler, NotFound } from '@/utils/handlers'
 
 export const GET = async (request: NextRequest) => {
   try {

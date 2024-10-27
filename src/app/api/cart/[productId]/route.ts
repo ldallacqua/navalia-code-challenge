@@ -1,9 +1,9 @@
 import { NextRequest } from 'next/server'
 
 import prisma from '../../../../../client'
-import { authenticate } from '@/app/api/utils/authenticate'
-import { errorResponseHandler, NotFound } from '@/app/api/utils/handlers'
 import { deleteCartItemSchema, patchCartItemSchema } from '@/schemas/cart'
+import { authenticate } from '@/utils/authenticate'
+import { errorResponseHandler, NotFound } from '@/utils/handlers'
 
 export const PATCH = async (
   request: NextRequest,
