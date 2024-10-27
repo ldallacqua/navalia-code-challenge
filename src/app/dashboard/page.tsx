@@ -7,11 +7,15 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar'
 
-export default function Home() {
+export default function Page() {
   return (
-    <>
+    <SidebarProvider>
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <Breadcrumb>
@@ -38,7 +42,7 @@ export default function Home() {
           <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
         </div>
       </SidebarInset>
-      <AppSidebar />
-    </>
+      <AppSidebar side="right" />
+    </SidebarProvider>
   )
 }
