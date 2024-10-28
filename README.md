@@ -28,6 +28,7 @@ This project uses **Next.js** for API routes, **Prisma** with PostgreSQL for dat
 For further details on these corrections, please refer to the [Correction of Calculation Errors in Sample Scenarios](#correction-of-calculation-errors-in-sample-scenarios) section.
 
 ## **Table of Contents**
+
 1. [Getting Started](#getting-started)
 2. [Running the Project](#running-the-project)
 3. [Adding Products to the Database](#adding-products-to-the-database)
@@ -44,25 +45,31 @@ For further details on these corrections, please refer to the [Correction of Cal
 ### **Getting Started**
 
 #### Prerequisites
+
 Ensure you have the following installed on your system:
+
 - **Node.js** (v20+)
 - **Yarn**
 - **PostgreSQL** (for database support)
 - **Prisma** (used for ORM)
 
 #### Installation
+
 1. Clone this repository:
+
    ```bash
    git clone https://github.com/ldallacqua/navalia-code-challenge.git
    cd navalia-code-challenge
    ```
 
 2. Install dependencies:
+
    ```bash
    yarn install
    ```
 
 3. Configure the PostgreSQL database. Set up your `.env` file based on `.env.example`:
+
    ```bash
    POSTGRES_PRISMA_URL="postgresql://username:password@localhost:5432/database_name"
    POSTGRES_URL_NON_POOLING="postgresql://username:password@localhost:5432/database_name?pgbouncer=false"
@@ -79,18 +86,22 @@ Ensure you have the following installed on your system:
 ### **Running the Project**
 
 #### Development Mode
+
 To start the development server:
-   ```bash
-   yarn dev
-   ```
+
+```bash
+yarn dev
+```
 
 This will run the project locally at `http://localhost:3000`.
 
 #### Production Mode
+
 For a production build, use:
-   ```bash
-   yarn build
-   ```
+
+```bash
+yarn build
+```
 
 ---
 
@@ -99,6 +110,7 @@ For a production build, use:
 **Note:** This project include predefined products in the database by default, but if you wish to add more you can do by using either **Postman** or **Prisma Studio**:
 
 1. **Using Postman**:
+
    - A Postman collection is included in the project repository to help with adding products and testing other API endpoints. [Download the Postman Collection](./assets/Navalia.postman_collection.json) and import it into Postman. You can then use the `Create Product` request in the collection to create new products in the database.
 
 2. **Using Prisma Studio**:
@@ -112,27 +124,33 @@ This setup ensures the database has necessary data for testing shopping cart fun
 ### **Testing and Linting**
 
 #### Run Tests
+
 This project uses **Jest** for unit testing. To run all tests:
-   ```bash
-   yarn test
-   ```
+
+```bash
+yarn test
+```
 
 For watch mode:
-   ```bash
-   yarn test:watch
-   ```
+
+```bash
+yarn test:watch
+```
 
 #### Code Linting
+
 Ensure code quality with ESLint and Prettier:
-   ```bash
-   yarn lint
-   yarn format
-   ```
+
+```bash
+yarn lint
+yarn format
+```
 
 Type-checking with TypeScript:
-   ```bash
-   yarn type-check
-   ```
+
+```bash
+yarn type-check
+```
 
 ---
 
@@ -181,6 +199,7 @@ This structure, combined with **shadcn/ui** for UI consistency and colocated tes
 - **shadcn/ui for Consistent and Accessible UI Components**: This project uses **shadcn/ui** to build a cohesive and accessible design system. Leveraging **shadcn/ui** provides a set of pre-designed, Radix-based components styled with Tailwind CSS, ensuring consistency across UI elements and simplifying component customization.
 
 ---
+
 ### **Database Schema and Relationships**
 
 This project utilizes **Prisma** with **PostgreSQL** to manage the database. The schema is designed to support users, products, and shopping cart items, and it aligns with the core functionality required for handling promotions and discounts in the shopping cart system.
@@ -188,9 +207,11 @@ This project utilizes **Prisma** with **PostgreSQL** to manage the database. The
 ![diagram](assets/diagram.png)
 
 #### **Prisma Schema Overview**
+
 The Prisma schema includes three primary models: **User**, **Product**, and **CartItem**. Here’s an explanation of each model and its relationships:
 
 1. **User Model**
+
    - **Fields**:
      - `id`: The unique identifier for each user.
      - `email`: A unique email address for each user.
@@ -201,6 +222,7 @@ The Prisma schema includes three primary models: **User**, **Product**, and **Ca
    - **Purpose**: Identifies and categorizes users, distinguishing between **VIP** and **common** users to apply relevant promotional discounts.
 
 2. **Product Model**
+
    - **Fields**:
      - `id`: Unique identifier for each product.
      - `name`: Name of the product.
@@ -232,11 +254,13 @@ The schema design supports the following requirements in the shopping cart syste
 This schema provides a flexible, scalable foundation for expanding the shopping cart's functionality, such as adding new user types, products, or complex promotions.
 
 ---
+
 ### **Deployment and CI/CD**
 
 This project leverages **Next.js** as the primary framework, chosen not only for its SSR (Server-Side Rendering) and SSG (Static Site Generation) capabilities but also for its seamless integration with **Vercel**. Vercel, the creator of Next.js, provides robust CI/CD features and out-of-the-box support for deploying Next.js applications, making it an ideal platform for rapid deployment and scalability.
 
 #### Why Vercel?
+
 - **CI/CD Integration**: Vercel integrates directly with GitHub and GitLab repositories, triggering automatic deployments on each push to main branches or pull requests, simplifying the CI/CD pipeline.
 - **Ease of Deployment**: With a single click, Vercel enables deploying Next.js applications, requiring minimal configuration. The platform is optimized for Next.js, handling performance optimizations like static caching and automatic routing, making it especially efficient for deploying this app.
 - **Database Support**: Vercel provides seamless integration with PostgreSQL and other databases through partners like **Neon** and **PlanetScale**, enabling database deployments with secure, scalable connections without complex configurations.
@@ -259,8 +283,10 @@ This integration with Vercel makes deploying, testing, and scaling the applicati
 During testing, a few discrepancies were identified in the sample scenarios originally provided. Here’s a summary of the scenarios with incorrect calculations, along with the corrected totals:
 
 #### **Scenario 2**: Common Customer with 2 T-Shirts and 2 Jeans
+
 - **Original Expected Total**: USD 137.49
 - **Correct Calculation**:
+
   - Since the promotion applies to the lowest-priced item, one T-shirt is free.
   - Paid items: 2 Jeans and 1 T-shirt.
   - **2 Jeans**: \( 2 \times 65.50 = 131.00 \)
@@ -270,8 +296,10 @@ During testing, a few discrepancies were identified in the sample scenarios orig
   **Corrected Expected Total**: USD **166.99**
 
 #### **Scenario 4**: VIP Customer with 2 Jeans and 2 Dresses
+
 - **Original Expected Total for "Get 3 for 2"**: USD 211.25
 - **Correct Calculation**:
+
   - The "Get 3 for 2" promotion applies to the cheapest item, so one jeans is free.
   - Paid items: 1 jeans and 2 dresses.
   - **1 Jeans**: 65.50

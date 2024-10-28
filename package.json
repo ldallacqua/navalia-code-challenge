@@ -10,7 +10,7 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "lint": "eslint . --fix",
-    "format": "prettier --write .",
+    "format": "prettier --write ./src/*",
     "type-check": "tsc --noEmit"
   },
   "prisma": {
