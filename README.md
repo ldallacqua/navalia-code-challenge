@@ -53,7 +53,7 @@ Ensure you have the following installed on your system:
 #### Installation
 1. Clone this repository:
    ```bash
-   git clone git@github.com:ldallacqua/navalia-code-challenge.git
+   git clone https://github.com/ldallacqua/navalia-code-challenge.git
    cd navalia-code-challenge
    ```
 
@@ -64,7 +64,8 @@ Ensure you have the following installed on your system:
 
 3. Configure the PostgreSQL database. Set up your `.env` file based on `.env.example`:
    ```bash
-   DATABASE_URL="postgresql://username:password@localhost:5432/database_name"
+   POSTGRES_PRISMA_URL="postgresql://username:password@localhost:5432/database_name"
+   POSTGRES_URL_NON_POOLING="postgresql://username:password@localhost:5432/database_name?pgbouncer=false"
    ```
 
 4. Initialize Prisma:
@@ -95,7 +96,7 @@ For a production build, use:
 
 ### **Adding Products to the Database**
 
-**Note:** This project does not include predefined products in the database by default. To test and use the application, products need to be added manually. You can add products using either **Postman** or **Prisma Studio**:
+**Note:** This project include predefined products in the database by default, but if you wish to add more you can do by using either **Postman** or **Prisma Studio**:
 
 1. **Using Postman**:
    - A Postman collection is included in the project repository to help with adding products and testing other API endpoints. [Download the Postman Collection](./assets/Navalia.postman_collection.json) and import it into Postman. You can then use the `Create Product` request in the collection to create new products in the database.

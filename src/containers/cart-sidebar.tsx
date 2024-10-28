@@ -70,32 +70,39 @@ export function CartSidebar() {
               <div className="flex gap-2 items-center">
                 <Checkbox
                   checked={selectedPromotion === 'vip'}
-                  id="terms1"
+                  id="vip"
                   onClick={() => setSelectedPromotion('vip')}
                 />
-                {`VIP Discount ${totals?.recommendation === 'vip' ? '(Recommended)' : ''}`}
+                <label htmlFor="vip">
+                  {`VIP Discount ${totals?.recommendation === 'vip' ? '(Recommended)' : ''}`}
+                </label>
               </div>
             )}
             {!!totals?.threeForTwoTotal && (
               <div className="flex gap-2 items-center">
                 <Checkbox
                   checked={selectedPromotion === '3for2'}
-                  id="terms2"
+                  id="3for2"
                   onClick={() => setSelectedPromotion('3for2')}
                 />
-                {`Buy 3, pay 2 ${totals?.recommendation === '3for2' ? '(Recommended)' : ''}`}
+                <label htmlFor="3for2">
+                  {`Buy 3, pay 2 ${totals?.recommendation === '3for2' ? '(Recommended)' : ''}`}
+                </label>
               </div>
             )}
             <div className="flex flex-1 justify-between py-6 items-end">
               <span className="text-2xl">Subtotal:</span>
               <div className="text-2xl flex flex-col gap-2 items-center">
-                <span className="line-through">${totals?.total}</span>
+                <span
+                  data-testid="total-value"
+                  className="line-through"
+                >{`$${totals?.total}`}</span>
                 <span className="text-2xl font-bold">
                   {selectedPromotion === 'vip' && (
-                    <span>${totals?.vipDiscountTotal}</span>
+                    <span data-testid="final-value">{`$${totals?.vipDiscountTotal}`}</span>
                   )}
                   {selectedPromotion === '3for2' && (
-                    <span>${totals?.threeForTwoTotal}</span>
+                    <span data-testid="final-value">{`$${totals?.threeForTwoTotal}`}</span>
                   )}
                 </span>
               </div>

@@ -37,6 +37,7 @@ export const CartItem = ({
 
     if (quantity < 1) {
       removeItemFromCart()
+      return
     }
 
     updateItemInCart(quantity)
@@ -71,6 +72,7 @@ export const CartItem = ({
           </span>
           <div className="flex gap-2 justify-start items-center">
             <Input
+              data-testid="cart-item-quantity"
               className="w-16"
               type="number"
               disabled={isUpdatingInCart || isFetching || isRemovingFromCart}
