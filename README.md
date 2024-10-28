@@ -10,8 +10,8 @@ The **Navalia Code Challenge** is a web application built with Next.js, Prisma, 
 4. [Architecture Overview](#architecture-overview)
 5. [Design Decisions](#design-decisions)
 6. [Database Schema and Relationships](#database-schema-and-relationships)
-7. [Future Improvements](#future-improvements)
-8. [Deployment and CI/CD](#deployment-and-cicd)
+7. [Deployment and CI/CD](#deployment-and-cicd)
+8. [Future Improvements](#future-improvements)
 
 ---
 
@@ -19,8 +19,8 @@ The **Navalia Code Challenge** is a web application built with Next.js, Prisma, 
 
 #### Prerequisites
 Ensure you have the following installed on your system:
-- **Node.js** (v16+)
-- **yarn**
+- **Node.js** (v20+)
+- **Yarn**
 - **PostgreSQL** (for database support)
 - **Prisma** (used for ORM)
 
