@@ -18,9 +18,9 @@ The **Navalia Code Challenge** is a web application that implements a shopping c
 
 This project uses **Next.js** for API routes, **Prisma** with PostgreSQL for database management, and **shadcn/ui** for consistent UI components. Deployed on **Vercel**, it leverages CI/CD and easy database connectivity.
 
-## **Note on Sample Scenarios**
+## <span style="color:red;">**Note on Sample Scenarios**</span>
 
-**Important:** During implementation, some discrepancies were identified in the provided sample scenarios, where the initial expected totals did not align with the correct promotional calculations. Corrections for these scenarios are listed below to ensure accuracy:
+<span style="color:red;">**Important:** During implementation, some discrepancies were identified in the provided sample scenarios, where the initial expected totals did not align with the correct promotional calculations. Corrections for these scenarios are listed below to ensure accuracy:</span>
 
 - **Scenario 2**: Common customer with 2 T-shirts and 2 jeans — Corrected expected total: USD **166.99**.
 - **Scenario 4**: VIP customer with 2 jeans and 2 dresses — Corrected expected total for "Get 3 for 2" promotion: USD **226.75**.
