@@ -1,8 +1,16 @@
 # **Navalia Code Challenge**
 
 ## **Project Overview**
-The **Navalia Code Challenge** is a web application built with Next.js, Prisma, and TypeScript, providing a modern interface with various interactive components using Shadcn/ui on top of Radix UI. The application integrates with PostgreSQL for database management and employs both frontend and backend tools to ensure a robust, responsive user experience.
 
+The **Navalia Code Challenge** is a web application that implements a shopping cart system with promotional pricing based on user type. The main requirements include:
+
+- **Cart Management**: Support for adding and removing items from the cart.
+- **User Type Identification**: Distinguishing between VIP and common users to apply different pricing rules.
+- **Promotional Pricing**:
+  - **"Get 3 for 2"** for common users.
+  - **15% VIP Discount** for VIP users, with a recommendation of the most advantageous pricing option.
+
+This project uses **Next.js** for API routes, **Prisma** with PostgreSQL for database management, and **shadcn/ui** for consistent UI components. Deployed on **Vercel**, it leverages CI/CD and easy database connectivity.
 
 ## **Note on Sample Scenarios**
 
@@ -20,13 +28,14 @@ Try out the live version of the project here: [Navalia Code Challenge - Live Dem
 ## **Table of Contents**
 1. [Getting Started](#getting-started)
 2. [Running the Project](#running-the-project)
-3. [Testing and Linting](#testing-and-linting)
-4. [Architecture Overview](#architecture-overview)
-5. [Design Decisions](#design-decisions)
-6. [Database Schema and Relationships](#database-schema-and-relationships)
-7. [Deployment and CI/CD](#deployment-and-cicd)
-8. [Future Improvements](#future-improvements)
-9. [Correction of Calculation Errors in Sample Scenarios](#correction-of-calculation-errors-in-sample-scenarios)
+3. [Adding Products to the Database](#adding-products-to-the-database)
+4. [Testing and Linting](#testing-and-linting)
+5. [Architecture Overview](#architecture-overview)
+6. [Design Decisions](#design-decisions)
+7. [Database Schema and Relationships](#database-schema-and-relationships)
+8. [Deployment and CI/CD](#deployment-and-cicd)
+9. [Future Improvements](#future-improvements)
+10. [Correction of Calculation Errors in Sample Scenarios](#correction-of-calculation-errors-in-sample-scenarios)
 
 ---
 
@@ -79,6 +88,21 @@ For a production build, use:
    ```bash
    yarn build
    ```
+
+---
+
+### **Adding Products to the Database**
+
+**Note:** This project does not include predefined products in the database by default. To test and use the application, products need to be added manually. You can add products using either **Postman** or **Prisma Studio**:
+
+1. **Using Postman**:
+   - A Postman collection is included in the project repository to help with adding products and testing other API endpoints. [Download the Postman Collection](./assets/Navalia.postman_collection.json) and import it into Postman. You can then use the `Create Product` request in the collection to create new products in the database.
+
+2. **Using Prisma Studio**:
+   - Run `npx prisma studio` in your terminal to open Prisma Studio.
+   - In the **Product** model, manually enter product details in the fields provided.
+
+This setup ensures the database has necessary data for testing shopping cart functionalities and promotions.
 
 ---
 

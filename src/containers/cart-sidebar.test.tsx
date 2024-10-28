@@ -66,6 +66,8 @@ describe('<AppSidebar />', () => {
         expect(
           screen.getByText('Buy 3, pay 2 (Recommended)')
         ).toBeInTheDocument()
+        expect(screen.getByText(/180.00/)).toBeInTheDocument()
+        expect(screen.queryByText(/190.00/)).not.toBeInTheDocument()
       })
     })
   })
