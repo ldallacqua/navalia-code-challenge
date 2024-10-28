@@ -2,6 +2,10 @@ https://github.com/user-attachments/assets/f84c9555-8dfa-4638-a84b-7a4552597a0e
 
 # **Navalia Code Challenge**
 
+## **Live Demo**
+
+Try out the live version of the project here: [Navalia Code Challenge - Live Demo](https://navalia-code-challenge.vercel.app)
+
 ## **Project Overview**
 
 The **Navalia Code Challenge** is a web application that implements a shopping cart system with promotional pricing based on user type. The main requirements include:
@@ -22,10 +26,6 @@ This project uses **Next.js** for API routes, **Prisma** with PostgreSQL for dat
 - **Scenario 4**: VIP customer with 2 jeans and 2 dresses — Corrected expected total for "Get 3 for 2" promotion: USD **226.75**.
 
 For further details on these corrections, please refer to the [Correction of Calculation Errors in Sample Scenarios](#correction-of-calculation-errors-in-sample-scenarios) section.
-
-## **Live Demo**
-
-Try out the live version of the project here: [Navalia Code Challenge - Live Demo](https://navalia-code-challenge.vercel.app/dashboard)
 
 ## **Table of Contents**
 1. [Getting Started](#getting-started)
