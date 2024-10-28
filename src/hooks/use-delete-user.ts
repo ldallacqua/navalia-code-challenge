@@ -1,7 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
-import { toast } from '@/hooks/use-toast'
 import api from '@/utils/axios-instance'
 
 export const useDeleteUser = () => {
@@ -12,21 +11,10 @@ export const useDeleteUser = () => {
     mutationFn: () => {
       return api.delete('/users')
     },
-    onSuccess: () => {
-      toast({
-        title: 'Success',
-        description: 'User deleted!',
-      })
+    onSettled: () => {
       localStorage.removeItem('userId')
       queryClient.removeQueries()
       router.replace('/')
-    },
-    onError: (error) => {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: error.message,
-      })
     },
   })
 }
