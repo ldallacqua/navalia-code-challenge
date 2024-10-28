@@ -1,7 +1,7 @@
 import { CartItem as CartItemType, Product } from '@prisma/client'
 import { ReloadIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Button } from '@/components/ui/button'
@@ -42,6 +42,10 @@ export const CartItem = ({
     updateItemInCart(quantity)
   }, [cartItem?.quantity, quantity, removeItemFromCart, updateItemInCart])
 
+  useEffect(() => {
+    setQuantity(cartItem?.quantity)
+  }, [cartItem?.quantity])
+
   return (
     <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
       <div className="flex gap-3 items-center">
@@ -69,7 +73,7 @@ export const CartItem = ({
             <Input
               className="w-16"
               type="number"
-              disabled={isUpdatingInCart}
+              disabled={isUpdatingInCart || isFetching || isRemovingFromCart}
               onChange={(e) => setQuantity(Number(e.target.value))}
               onBlur={() => handleUpdateItemInCart()}
               value={quantity}
