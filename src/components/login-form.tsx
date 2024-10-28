@@ -1,8 +1,6 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -25,12 +23,10 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { toast } from '@/hooks/use-toast'
-import { CreateUserFormSchema, CreateUserSchema } from '@/schemas/users'
-import api from '@/utils/axios-instance'
+import { useCreateUser } from '@/hooks/use-create-user'
+import { CreateUserFormSchema } from '@/schemas/users'
 
 export function LoginForm() {
-  const router = useRouter()
   const form = useForm<z.infer<typeof CreateUserFormSchema>>({
     resolver: zodResolver(CreateUserFormSchema),
     defaultValues: {
@@ -40,26 +36,7 @@ export function LoginForm() {
     },
   })
 
-  const { mutate: createUser, isPending } = useMutation({
-    mutationFn: (data: z.infer<typeof CreateUserSchema>) => {
-      return api.post('/users', data)
-    },
-    onSuccess: ({ data }) => {
-      toast({
-        title: 'Success',
-        description: 'User created!',
-      })
-      localStorage.setItem('userId', data?.id)
-      router.replace('/dashboard')
-    },
-    onError: (error) => {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: error.message,
-      })
-    },
-  })
+  const { mutate: createUser, isPending } = useCreateUser()
 
   const onSubmit = (data: z.infer<typeof CreateUserFormSchema>) => {
     createUser({

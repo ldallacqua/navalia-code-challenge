@@ -2,9 +2,7 @@
 
 import { Product } from '@prisma/client'
 import { ReloadIcon } from '@radix-ui/react-icons'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
-import { z } from 'zod'
 
 import { AspectRatio } from '@/components/ui/aspect-ratio'
 import { Button } from '@/components/ui/button'
@@ -16,10 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { useSidebar } from '@/components/ui/sidebar'
-import { toast } from '@/hooks/use-toast'
-import { createCartItemSchema } from '@/schemas/cart'
-import api from '@/utils/axios-instance'
+import { useAddItemToCart } from '@/hooks/use-add-item-to-cart'
 
 export const GalleryItem = ({
   name,
@@ -28,31 +23,7 @@ export const GalleryItem = ({
   imagePath,
   price,
 }: Product) => {
-  const queryClient = useQueryClient()
-  const { setOpen, setOpenMobile } = useSidebar()
-
-  const { mutate: addToCart, isPending } = useMutation({
-    mutationFn: (data: z.infer<typeof createCartItemSchema>) => {
-      return api.post('/cart', data)
-    },
-    onSuccess: () => {
-      toast({
-        title: 'Success',
-        description: `${name} added to cart`,
-      })
-      setOpen(true)
-      setOpenMobile(true)
-      queryClient.invalidateQueries({ queryKey: ['cart'] })
-      queryClient.invalidateQueries({ queryKey: ['totals'] })
-    },
-    onError: (error) => {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: error.message,
-      })
-    },
-  })
+  const { mutate: addToCart, isPending } = useAddItemToCart()
 
   const handleAddToCart = () => {
     addToCart({ productId: id, quantity: 1 })
@@ -65,16 +36,18 @@ export const GalleryItem = ({
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <AspectRatio ratio={3 / 4} className="bg-muted rounded-lg">
-          <Image
-            src={imagePath}
-            alt="Photo by Drew Beamer"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="h-full w-full rounded-md object-cover"
-          />
-        </AspectRatio>
+        {!!imagePath && (
+          <AspectRatio ratio={3 / 4} className="bg-muted rounded-lg">
+            <Image
+              src={imagePath}
+              alt={description}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="h-full w-full rounded-md object-cover"
+            />
+          </AspectRatio>
+        )}
       </CardContent>
       <CardFooter className="flex justify-between">
         <div>${price?.toString()}</div>

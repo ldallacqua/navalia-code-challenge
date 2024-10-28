@@ -8,7 +8,7 @@ import { Sidebar, SidebarContent, SidebarFooter } from '@/components/ui/sidebar'
 import { useGetCartItems } from '@/hooks/use-get-cart-items'
 import { useGetTotals } from '@/hooks/use-get-totals'
 
-export function AppSidebar() {
+export function CartSidebar() {
   const { data: cartItems, isFetching } = useGetCartItems()
   const [selectedPromotion, setSelectedPromotion] = useState('3for2')
 
@@ -100,6 +100,7 @@ export function AppSidebar() {
                 </span>
               </div>
             </div>
+
             <Button className="w-full">Checkout</Button>
           </SidebarFooter>
         )

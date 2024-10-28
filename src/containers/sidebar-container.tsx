@@ -1,9 +1,6 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { LogOut } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import React from 'react'
 
-import { AppSidebar } from '@/components/app-sidebar'
 import {
   AlertDialogAction,
   AlertDialogCancel,
@@ -17,34 +14,11 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { SidebarInset, SidebarTrigger } from '@/components/ui/sidebar'
-import { toast } from '@/hooks/use-toast'
-import api from '@/utils/axios-instance'
+import { CartSidebar } from '@/containers/cart-sidebar'
+import { useDeleteUser } from '@/hooks/use-delete-user'
 
 const SidebarContainer = ({ children }: { children: JSX.Element }) => {
-  const router = useRouter()
-  const queryClient = useQueryClient()
-
-  const { mutate: deleteUser, isPending } = useMutation({
-    mutationFn: () => {
-      return api.delete('/users')
-    },
-    onSuccess: () => {
-      toast({
-        title: 'Success',
-        description: 'User deleted!',
-      })
-      localStorage.removeItem('userId')
-      queryClient.removeQueries()
-      router.replace('/')
-    },
-    onError: (error) => {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: error.message,
-      })
-    },
-  })
+  const { mutate: deleteUser, isPending } = useDeleteUser()
 
   const handleDeleteUser = () => {
     deleteUser()
@@ -91,7 +65,7 @@ const SidebarContainer = ({ children }: { children: JSX.Element }) => {
         </header>
         {children}
       </SidebarInset>
-      <AppSidebar />
+      <CartSidebar />
     </>
   )
 }
