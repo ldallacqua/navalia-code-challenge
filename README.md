@@ -289,9 +289,9 @@ During testing, a few discrepancies were identified in the sample scenarios orig
 
   - Since the promotion applies to the lowest-priced item, one T-shirt is free.
   - Paid items: 2 Jeans and 1 T-shirt.
-  - **2 Jeans**: \( 2 \times 65.50 = 131.00 \)
+  - **2 Jeans**: 2 * 65.50 = 131.00
   - **1 T-Shirt**: 35.99
-  - **Correct Total**: \( 131.00 + 35.99 = 166.99 \)
+  - **Correct Total**: 131.00 + 35.99 = 166.99
 
   **Corrected Expected Total**: USD **166.99**
 
@@ -303,8 +303,8 @@ During testing, a few discrepancies were identified in the sample scenarios orig
   - The "Get 3 for 2" promotion applies to the cheapest item, so one jeans is free.
   - Paid items: 1 jeans and 2 dresses.
   - **1 Jeans**: 65.50
-  - **2 Dresses**: \( 2 \times 80.75 = 161.50 \)
-  - **Correct Total**: \( 65.50 + 161.50 = 226.75 \)
+  - **2 Dresses**: 2 * 80.75 = 161.50
+  - **Correct Total**: 65.50 + 161.50 = 226.75
 
   **Corrected Expected Total for "Get 3 for 2"**: USD **226.75**
 
