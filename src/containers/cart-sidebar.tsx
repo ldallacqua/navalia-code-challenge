@@ -2,7 +2,7 @@ import { ReloadIcon } from '@radix-ui/react-icons'
 import { useEffect, useMemo, useState } from 'react'
 
 import { CartItem } from '@/components/cart-item'
-import { Button } from '@/components/ui/button'
+import { CheckoutButton } from '@/components/checkout-button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Sidebar, SidebarContent, SidebarFooter } from '@/components/ui/sidebar'
 import { useGetCartItems } from '@/hooks/use-get-cart-items'
@@ -108,7 +108,7 @@ export function CartSidebar() {
               </div>
             </div>
 
-            <Button className="w-full">Checkout</Button>
+            <CheckoutButton />
           </SidebarFooter>
         )
       )}
