@@ -3,6 +3,20 @@
 ## **Project Overview**
 The **Navalia Code Challenge** is a web application built with Next.js, Prisma, and TypeScript, providing a modern interface with various interactive components using Shadcn/ui on top of Radix UI. The application integrates with PostgreSQL for database management and employs both frontend and backend tools to ensure a robust, responsive user experience.
 
+
+## **Note on Sample Scenarios**
+
+**Important:** During implementation, some discrepancies were identified in the provided sample scenarios, where the initial expected totals did not align with the correct promotional calculations. Corrections for these scenarios are listed below to ensure accuracy:
+
+- **Scenario 2**: Common customer with 2 T-shirts and 2 jeans — Corrected expected total: USD **166.99**.
+- **Scenario 4**: VIP customer with 2 jeans and 2 dresses — Corrected expected total for "Get 3 for 2" promotion: USD **226.75**.
+
+For further details on these corrections, please refer to the [Correction of Calculation Errors in Sample Scenarios](#correction-of-calculation-errors-in-sample-scenarios) section.
+
+## **Live Demo**
+
+Try out the live version of the project here: [Navalia Code Challenge - Live Demo](https://navalia-code-challenge.vercel.app/dashboard)
+
 ## **Table of Contents**
 1. [Getting Started](#getting-started)
 2. [Running the Project](#running-the-project)
@@ -12,6 +26,7 @@ The **Navalia Code Challenge** is a web application built with Next.js, Prisma, 
 6. [Database Schema and Relationships](#database-schema-and-relationships)
 7. [Deployment and CI/CD](#deployment-and-cicd)
 8. [Future Improvements](#future-improvements)
+9. [Correction of Calculation Errors in Sample Scenarios](#correction-of-calculation-errors-in-sample-scenarios)
 
 ---
 
@@ -209,3 +224,33 @@ This integration with Vercel makes deploying, testing, and scaling the applicati
 - **Error Boundary Implementation**: Set up error boundaries for enhanced error handling on a per-page or per-component basis.
 - **Performance Optimizations**: Investigate lazy-loading strategies for images and other heavy assets.
 - **Testing Coverage Expansion**: Increase test coverage, particularly on critical functionalities and edge cases.
+
+---
+
+### **Correction of Calculation Errors in Sample Scenarios**
+
+During testing, a few discrepancies were identified in the sample scenarios originally provided. Here’s a summary of the scenarios with incorrect calculations, along with the corrected totals:
+
+#### **Scenario 2**: Common Customer with 2 T-Shirts and 2 Jeans
+- **Original Expected Total**: USD 137.49
+- **Correct Calculation**:
+  - Since the promotion applies to the lowest-priced item, one T-shirt is free.
+  - Paid items: 2 Jeans and 1 T-shirt.
+  - **2 Jeans**: \( 2 \times 65.50 = 131.00 \)
+  - **1 T-Shirt**: 35.99
+  - **Correct Total**: \( 131.00 + 35.99 = 166.99 \)
+
+  **Corrected Expected Total**: USD **166.99**
+
+#### **Scenario 4**: VIP Customer with 2 Jeans and 2 Dresses
+- **Original Expected Total for "Get 3 for 2"**: USD 211.25
+- **Correct Calculation**:
+  - The "Get 3 for 2" promotion applies to the cheapest item, so one jeans is free.
+  - Paid items: 1 jeans and 2 dresses.
+  - **1 Jeans**: 65.50
+  - **2 Dresses**: \( 2 \times 80.75 = 161.50 \)
+  - **Correct Total**: \( 65.50 + 161.50 = 226.75 \)
+
+  **Corrected Expected Total for "Get 3 for 2"**: USD **226.75**
+
+The other scenarios were calculated correctly and remain unchanged. This correction ensures that the pricing logic accurately reflects the expected promotional calculations.
