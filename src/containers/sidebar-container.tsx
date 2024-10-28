@@ -34,7 +34,7 @@ const SidebarContainer = ({ children }: { children: JSX.Element }) => {
         description: 'User deleted!',
       })
       localStorage.removeItem('userId')
-      queryClient.invalidateQueries({ queryKey: ['cart'] })
+      queryClient.removeQueries()
       router.replace('/')
     },
     onError: (error) => {

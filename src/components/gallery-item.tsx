@@ -1,6 +1,7 @@
 'use client'
 
 import { Product } from '@prisma/client'
+import { ReloadIcon } from '@radix-ui/react-icons'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import { z } from 'zod'
@@ -15,6 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { useSidebar } from '@/components/ui/sidebar'
 import { toast } from '@/hooks/use-toast'
 import { createCartItemSchema } from '@/schemas/cart'
 import api from '@/utils/axios-instance'
@@ -27,6 +29,7 @@ export const GalleryItem = ({
   price,
 }: Product) => {
   const queryClient = useQueryClient()
+  const { setOpen, setOpenMobile } = useSidebar()
 
   const { mutate: addToCart, isPending } = useMutation({
     mutationFn: (data: z.infer<typeof createCartItemSchema>) => {
@@ -37,7 +40,10 @@ export const GalleryItem = ({
         title: 'Success',
         description: `${name} added to cart`,
       })
+      setOpen(true)
+      setOpenMobile(true)
       queryClient.invalidateQueries({ queryKey: ['cart'] })
+      queryClient.invalidateQueries({ queryKey: ['totals'] })
     },
     onError: (error) => {
       toast({
@@ -73,7 +79,14 @@ export const GalleryItem = ({
       <CardFooter className="flex justify-between">
         <div>${price?.toString()}</div>
         <Button onClick={handleAddToCart} disabled={isPending}>
-          Add to Cart
+          {isPending ? (
+            <>
+              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+              Please wait
+            </>
+          ) : (
+            'Add to Cart'
+          )}
         </Button>
       </CardFooter>
     </Card>

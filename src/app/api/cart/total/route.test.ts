@@ -10,7 +10,7 @@ import { GET } from '@/app/api/cart/total/route'
 import { PRODUCTS } from '@/mocks/products'
 import { authenticate } from '@/utils/authenticate'
 
-jest.mock('@/app/api/utils/authenticate')
+jest.mock('@/utils/authenticate')
 const mockAuthenticate = authenticate as jest.Mock
 
 type UserWithCartItems = User & {
@@ -45,7 +45,7 @@ describe('GET /api/cart/price', () => {
 
       const json = await response.json()
       expect(json).toMatchObject({
-        recommendation: '3 for 2 Promotion',
+        recommendation: '3for2',
         threeForTwoTotal: '71.98',
         total: '107.97',
         vipDiscountTotal: null,
@@ -75,7 +75,7 @@ describe('GET /api/cart/price', () => {
       const json = await response.json()
 
       expect(json).toMatchObject({
-        recommendation: '3 for 2 Promotion',
+        recommendation: '3for2',
         threeForTwoTotal: '166.99',
         total: '202.98',
         vipDiscountTotal: null,
@@ -100,7 +100,7 @@ describe('GET /api/cart/price', () => {
 
       const json = await response.json()
       expect(json).toMatchObject({
-        recommendation: '3 for 2 Promotion',
+        recommendation: '3for2',
         threeForTwoTotal: '161.50',
         total: '242.25',
         vipDiscountTotal: '205.91',
@@ -129,7 +129,7 @@ describe('GET /api/cart/price', () => {
 
       const json = await response.json()
       expect(json).toMatchObject({
-        recommendation: '3 for 2 Promotion',
+        recommendation: '3for2',
         threeForTwoTotal: '227.00',
         total: '292.50',
         vipDiscountTotal: '248.63',
@@ -158,7 +158,7 @@ describe('GET /api/cart/price', () => {
 
       const json = await response.json()
       expect(json).toMatchObject({
-        recommendation: '3 for 2 Promotion',
+        recommendation: '3for2',
         threeForTwoTotal: '173.47',
         total: '209.46',
         vipDiscountTotal: '178.04',

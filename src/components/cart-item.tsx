@@ -1,4 +1,5 @@
 import { CartItem as CartItemType, Product } from '@prisma/client'
+import { ReloadIcon } from '@radix-ui/react-icons'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
 import { useCallback, useState } from 'react'
@@ -13,7 +14,13 @@ type CartItemProps = {
   Product: Product
 } & CartItemType
 
-export const CartItem = ({ cartItem }: { cartItem: CartItemProps }) => {
+export const CartItem = ({
+  cartItem,
+  isFetching,
+}: {
+  isFetching: boolean
+  cartItem: CartItemProps
+}) => {
   const queryClient = useQueryClient()
   const [quantity, setQuantity] = useState(cartItem?.quantity)
 
@@ -34,6 +41,7 @@ export const CartItem = ({ cartItem }: { cartItem: CartItemProps }) => {
           description: 'Item removed from cart',
         })
         queryClient.invalidateQueries({ queryKey: ['cart'] })
+        queryClient.invalidateQueries({ queryKey: ['totals'] })
       },
       onError,
     })
@@ -49,6 +57,7 @@ export const CartItem = ({ cartItem }: { cartItem: CartItemProps }) => {
           description: 'Item updated in cart',
         })
         queryClient.invalidateQueries({ queryKey: ['cart'] })
+        queryClient.invalidateQueries({ queryKey: ['totals'] })
       },
       onError,
     }
@@ -66,7 +75,7 @@ export const CartItem = ({ cartItem }: { cartItem: CartItemProps }) => {
 
   return (
     <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-3 items-center">
         <div className="w-[80px]">
           <AspectRatio ratio={1 / 1} className="bg-muted rounded-lg">
             <Image
@@ -94,7 +103,6 @@ export const CartItem = ({ cartItem }: { cartItem: CartItemProps }) => {
               onBlur={() => handleUpdateItemInCart()}
               value={quantity}
             />
-            {`x $${Number(cartItem?.Product?.price).toFixed(2)}`}
           </div>
         </div>
       </div>
@@ -107,7 +115,11 @@ export const CartItem = ({ cartItem }: { cartItem: CartItemProps }) => {
           Remove
         </Button>
         <div>
-          ${(Number(cartItem?.Product?.price) * cartItem?.quantity).toFixed(2)}
+          {isFetching ? (
+            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            `$${(Number(cartItem?.Product?.price) * cartItem?.quantity).toFixed(2)}`
+          )}
         </div>
       </div>
     </div>

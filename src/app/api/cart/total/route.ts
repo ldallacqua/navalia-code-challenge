@@ -31,7 +31,7 @@ export const GET = async (request: NextRequest) => {
     const { userType, CartItem } = user
 
     if (CartItem.length === 0) {
-      return NotFound('Cart is empty')
+      return Response.json({})
     }
 
     // Extract product prices and quantities from cart items
@@ -59,9 +59,9 @@ export const GET = async (request: NextRequest) => {
     // Determine the best option
     let recommendation
     if (vipDiscountTotal !== null && vipDiscountTotal < threeForTwoTotal) {
-      recommendation = 'VIP Discount'
+      recommendation = 'vip'
     } else {
-      recommendation = '3 for 2 Promotion'
+      recommendation = '3for2'
     }
 
     return Response.json({

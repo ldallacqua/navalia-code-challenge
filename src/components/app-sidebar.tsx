@@ -1,16 +1,32 @@
-import { useMemo } from 'react'
+import { ReloadIcon } from '@radix-ui/react-icons'
+import { useEffect, useMemo, useState } from 'react'
 
 import { CartItem } from '@/components/cart-item'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import { Sidebar, SidebarContent, SidebarFooter } from '@/components/ui/sidebar'
 import { useGetCartItems } from '@/hooks/use-get-cart-items'
+import { useGetTotals } from '@/hooks/use-get-totals'
 
 export function AppSidebar() {
-  const { data: cartItems } = useGetCartItems()
+  const { data: cartItems, isFetching } = useGetCartItems()
+  const [selectedPromotion, setSelectedPromotion] = useState('3for2')
 
   const hasCartItems = useMemo(() => {
     return cartItems && cartItems.length > 0
   }, [cartItems])
+
+  const { data: totals, isFetching: isFetchingTotals } = useGetTotals({
+    enabled: !!hasCartItems,
+  })
+
+  useEffect(() => {
+    if (totals?.recommendation === 'vip') {
+      return setSelectedPromotion('vip')
+    } else if (totals?.recommendation === '3for2') {
+      return setSelectedPromotion('3for2')
+    }
+  }, [totals])
 
   return (
     <Sidebar side="right">
@@ -20,19 +36,74 @@ export function AppSidebar() {
           cartItems
             ?.sort((a, b) => (a?.createdAt > b?.createdAt ? 1 : -1))
             ?.map((cartItem) => (
-              <CartItem key={cartItem?.productId} cartItem={cartItem} />
+              <CartItem
+                key={cartItem?.productId}
+                cartItem={cartItem}
+                isFetching={isFetching}
+              />
             ))
+        ) : isFetching ? (
+          <div className="flex gap-2 items-center">
+            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+            Loading your cart...
+          </div>
         ) : (
           <div className="text-center text-muted-foreground">
             Your cart is empty
           </div>
         )}
       </SidebarContent>
-      <SidebarFooter className="p-6">
-        <Button disabled={!hasCartItems} className="w-full">
-          Checkout
-        </Button>
-      </SidebarFooter>
+      {isFetchingTotals ? (
+        <SidebarFooter className="p-6">
+          <div className="flex gap-2 items-center">
+            <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+            Loading some nice discounts for you...
+          </div>
+        </SidebarFooter>
+      ) : (
+        hasCartItems && (
+          <SidebarFooter className="p-6">
+            <h2 className="mb-2">
+              You have the following available discounts:
+            </h2>
+            {!!totals?.vipDiscountTotal && (
+              <div className="flex gap-2 items-center">
+                <Checkbox
+                  checked={selectedPromotion === 'vip'}
+                  id="terms1"
+                  onClick={() => setSelectedPromotion('vip')}
+                />
+                {`VIP Discount ${totals?.recommendation === 'vip' ? '(Recommended)' : ''}`}
+              </div>
+            )}
+            {!!totals?.threeForTwoTotal && (
+              <div className="flex gap-2 items-center">
+                <Checkbox
+                  checked={selectedPromotion === '3for2'}
+                  id="terms2"
+                  onClick={() => setSelectedPromotion('3for2')}
+                />
+                {`Buy 3, pay 2 ${totals?.recommendation === '3for2' ? '(Recommended)' : ''}`}
+              </div>
+            )}
+            <div className="flex flex-1 justify-between py-6 items-end">
+              <span className="text-2xl">Subtotal:</span>
+              <div className="text-2xl flex flex-col gap-2 items-center">
+                <span className="line-through">${totals?.total}</span>
+                <span className="text-2xl font-bold">
+                  {selectedPromotion === 'vip' && (
+                    <span>${totals?.vipDiscountTotal}</span>
+                  )}
+                  {selectedPromotion === '3for2' && (
+                    <span>${totals?.threeForTwoTotal}</span>
+                  )}
+                </span>
+              </div>
+            </div>
+            <Button className="w-full">Checkout</Button>
+          </SidebarFooter>
+        )
+      )}
     </Sidebar>
   )
 }
